@@ -1,4 +1,4 @@
-#importing modules needed
+#Importing modules needed
 import cv2                                                                                  
 import numpy as np
 import time
@@ -27,7 +27,7 @@ maxHSVBall = np.array([30, 255, 255])
 #Font that will be used to display the text on screen
 font = cv2.FONT_HERSHEY_SIMPLEX
 
-#start the camera                                                                  
+#Start the camera                                                                  
 vc = cv2.VideoCapture(0)                                                                    
 
 #If camera is open and taking shots
@@ -44,7 +44,7 @@ loopCount = 1
 print("Using OpenCV version ", cv2.__version__)
 print("Sec per loop,Avg loop,Sec camera read,Avg camera read,Dist,HorzAngle")
 while rval:
-    # start timing
+    #Start timing
     startTime = time.time()
     rval, frame = vc.read()  
     endTime = time.time()
@@ -67,7 +67,7 @@ while rval:
         print("Could not find any contours")
         continue
 
-    # Use openCV circle to estimate dist and angle
+    #Use openCV circle to estimate dist and angle
     center,radius = cv2.minEnclosingCircle(cnt)
     radiusInt = int(radius)
     centerInt = (int (center[0]), int (center[1]))
@@ -81,7 +81,7 @@ while rval:
     horzAngleRadians = math.atan(horzDistInch / calibCameraDistInch)
     horzAngleDegree = horzAngleRadians * radiansToDegrees
 
-    #if saveCount % 5 == 0:
+    #If saveCount % 5 == 0:
     cv2.circle(frame, centerInt, radiusInt, [255,0,0], 3, cv2.LINE_AA)
     cv2.drawMarker(frame, (int(imageCenterX), int(imageCenterY)), [0, 0, 255], cv2.MARKER_CROSS)
     cv2.imwrite("InRange.jpg", InRange)
@@ -89,7 +89,7 @@ while rval:
 
     saveCount = saveCount + 1
 
-    # end timing
+    #End timing
     endTime = time.time()
     elapsed = endTime-startTime
     elapsedAccum = elapsedAccum + elapsed
